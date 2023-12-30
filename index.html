@@ -58,6 +58,10 @@
             </div>
         </div>
 
+        <!-- Nuevo campo para el título del contenido -->
+        <label for="tituloContenido">Título del Contenido:</label>
+        <input type="text" id="tituloContenido" name="tituloContenido" required>
+
         <button type="button" onclick="agregarAutor()">Agregar Autor</button>
 
         <br>
@@ -72,32 +76,5 @@
 
     <!-- Archivo JS -->
     <script src="generadorXML.js"></script>
-
-    <script>
-        // Agregar las opciones para Contributor Role al primer autor al cargar la página
-        document.addEventListener('DOMContentLoaded', function () {
-            var primerAutor = document.querySelector("#autoresContainer .autor");
-            var selectContributorRole = primerAutor.querySelector(".contributorRole");
-
-            var roles = [
-                "author",
-                "editor",
-                "chair",
-                "reviewer",
-                "review-assistant",
-                "stats-reviewer",
-                "reviewer-external",
-                "reader",
-                "translator"
-            ];
-
-            roles.forEach(function (role) {
-                var option = document.createElement("option");
-                option.value = role;
-                option.textContent = role.charAt(0).toUpperCase() + role.slice(1); // Capitalizar la primera letra
-                selectContributorRole.appendChild(option);
-            });
-        });
-    </script>
 </body>
 </html>

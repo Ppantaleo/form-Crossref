@@ -117,6 +117,13 @@ function generarXML() {
 
         postedContent.appendChild(contributors);
 
+        // Agregar <titles> y <title> al "posted_content"
+        var titles = document.createElementNS("http://www.crossref.org/schema/4.4.2", "titles");
+        var title = document.createElementNS("http://www.crossref.org/schema/4.4.2", "title");
+        title.textContent = document.getElementById("tituloContenido").value; // Obtener del campo correspondiente
+        titles.appendChild(title);
+        postedContent.appendChild(titles);
+
         body.appendChild(postedContent);
 
         // Agregar "body" al "doi_batch"
@@ -140,6 +147,35 @@ function generarXML() {
         console.error("Error al generar XML:", error);
     }
 }
+
+// Función para agregar las opciones para Contributor Role al primer autor al cargar la página
+function agregarOpcionesContributorRole() {
+    var primerAutor = document.querySelector("#autoresContainer .autor");
+    var selectContributorRole = primerAutor.querySelector(".contributorRole");
+
+    var roles = [
+        "author",
+        "editor",
+        "chair",
+        "reviewer",
+        "review-assistant",
+        "stats-reviewer",
+        "reviewer-external",
+        "reader",
+        "translator"
+    ];
+
+    roles.forEach(function (role) {
+        var option = document.createElement("option");
+        option.value = role;
+        option.textContent = role.charAt(0).toUpperCase() + role.slice(1); // Capitalizar la primera letra
+        selectContributorRole.appendChild(option);
+    });
+}
+
+// Agregar evento al cargar la página
+document.addEventListener('DOMContentLoaded', agregarOpcionesContributorRole);
+
 
 // Función para agregar un nuevo autor
 function agregarAutor() {
