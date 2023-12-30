@@ -124,6 +124,38 @@ function generarXML() {
         titles.appendChild(title);
         postedContent.appendChild(titles);
 
+        // Obtener valores de las fechas
+        var postedDateValue = document.getElementById("postedDate").value;
+        var acceptanceDateValue = document.getElementById("acceptanceDate").value;
+
+        // Agregar <posted_date> al "posted_content"
+        var postedDate = document.createElementNS("http://www.crossref.org/schema/4.4.2", "posted_date");
+        var postedDateComponents = postedDateValue.split('-');
+        var postedDateMonth = document.createElementNS("http://www.crossref.org/schema/4.4.2", "month");
+        postedDateMonth.textContent = postedDateComponents[1];
+        var postedDateDay = document.createElementNS("http://www.crossref.org/schema/4.4.2", "day");
+        postedDateDay.textContent = postedDateComponents[2];
+        var postedDateYear = document.createElementNS("http://www.crossref.org/schema/4.4.2", "year");
+        postedDateYear.textContent = postedDateComponents[0];
+        postedDate.appendChild(postedDateMonth);
+        postedDate.appendChild(postedDateDay);
+        postedDate.appendChild(postedDateYear);
+        postedContent.appendChild(postedDate);
+
+        // Agregar <acceptance_date> al "posted_content"
+        var acceptanceDate = document.createElementNS("http://www.crossref.org/schema/4.4.2", "acceptance_date");
+        var acceptanceDateComponents = acceptanceDateValue.split('-');
+        var acceptanceDateMonth = document.createElementNS("http://www.crossref.org/schema/4.4.2", "month");
+        acceptanceDateMonth.textContent = acceptanceDateComponents[1];
+        var acceptanceDateDay = document.createElementNS("http://www.crossref.org/schema/4.4.2", "day");
+        acceptanceDateDay.textContent = acceptanceDateComponents[2];
+        var acceptanceDateYear = document.createElementNS("http://www.crossref.org/schema/4.4.2", "year");
+        acceptanceDateYear.textContent = acceptanceDateComponents[0];
+        acceptanceDate.appendChild(acceptanceDateMonth);
+        acceptanceDate.appendChild(acceptanceDateDay);
+        acceptanceDate.appendChild(acceptanceDateYear);
+        postedContent.appendChild(acceptanceDate);
+
         body.appendChild(postedContent);
 
         // Agregar "body" al "doi_batch"

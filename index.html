@@ -57,12 +57,19 @@
                 <input type="text" class="orcid">
             </div>
         </div>
+        <button type="button" onclick="agregarAutor()">Agregar Autor</button>
 
         <!-- Nuevo campo para el título del contenido -->
         <label for="tituloContenido">Título del Contenido:</label>
         <input type="text" id="tituloContenido" name="tituloContenido" required>
 
-        <button type="button" onclick="agregarAutor()">Agregar Autor</button>
+        <!-- Nuevos campos para fechas -->
+        <label for="postedDate">Fecha de Publicación:</label>
+        <input type="date" id="postedDate" name="postedDate" required>
+
+        <!-- fecha de aceptación -->
+        <label for="acceptanceDate">Fecha de Aceptación:</label>
+        <input type="date" id="acceptanceDate" name="acceptanceDate" required> 
 
         <br>
         <button type="button" onclick="generarXML()">Generar XML</button>
