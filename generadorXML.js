@@ -70,34 +70,12 @@ function generarXML() {
     // Agregar "head" al "doi_batch"
     doiBatch.appendChild(head);
 
-    // Agregar elementos al "body"
-    // Puedes personalizar y agregar más elementos según tus necesidades
-
     // Obtener valores de los nuevos campos
-    var title = document.getElementById("title").value;
-    var author = document.getElementById("author").value;
     var tipoContenido = document.getElementById("tipoContenido").value;
 
     // Agregar nuevos elementos al "body"
     var postedContent = document.createElement("posted_content");
     postedContent.setAttribute("type", tipoContenido); // Establecer el tipo de contenido
-
-    var titles = document.createElement("titles");
-    var titleElement = document.createElement("title");
-    titleElement.textContent = title;
-    titles.appendChild(titleElement);
-
-    var contributors = document.createElement("contributors");
-    var personName = document.createElement("person_name");
-    personName.setAttribute("sequence", "first");
-    personName.setAttribute("contributor_role", "author");
-    var givenName = document.createElement("given_name");
-    givenName.textContent = author;
-    personName.appendChild(givenName);
-    contributors.appendChild(personName);
-
-    postedContent.appendChild(titles);
-    postedContent.appendChild(contributors);
 
     body.appendChild(postedContent);
 
