@@ -87,8 +87,11 @@ function generarXML() {
 
             // Obtener valores del autor
             var nombre = autor.querySelector(".nombre").value;
+            var apellido = autor.querySelector(".apellido").value;
             var sequence = autor.querySelector(".sequence").value;
             var contributorRole = autor.querySelector(".contributorRole").value;
+            var afiliacion = autor.querySelector(".afiliacion").value;
+            var orcid = autor.querySelector(".orcid").value;
 
             personName.setAttribute("sequence", sequence);
             personName.setAttribute("contributor_role", contributorRole);
@@ -97,7 +100,17 @@ function generarXML() {
             givenName.textContent = nombre;
             personName.appendChild(givenName);
 
-            // No es necesario agregar <contributor_role> al "person_name" del primer autor
+            var surname = document.createElementNS("http://www.crossref.org/schema/4.4.2", "surname");
+            surname.textContent = apellido;
+            personName.appendChild(surname);
+
+            var affiliation = document.createElementNS("http://www.crossref.org/schema/4.4.2", "affiliation");
+            affiliation.textContent = afiliacion;
+            personName.appendChild(affiliation);
+
+            var orcidElement = document.createElementNS("http://www.crossref.org/schema/4.4.2", "ORCID");
+            orcidElement.textContent = orcid;
+            personName.appendChild(orcidElement);
 
             contributors.appendChild(personName);
         }
@@ -144,6 +157,13 @@ function agregarAutor() {
     inputNombre.classList.add("nombre");
     inputNombre.required = true;
 
+    var labelApellido = document.createElement("label"); // Nuevo campo Apellido
+    labelApellido.textContent = "Apellido:";
+    var inputApellido = document.createElement("input");
+    inputApellido.type = "text";
+    inputApellido.classList.add("apellido");
+    inputApellido.required = true;
+
     var labelSequence = document.createElement("label");
     labelSequence.textContent = "Sequence:";
     var selectSequence = document.createElement("select");
@@ -182,13 +202,31 @@ function agregarAutor() {
         selectContributorRole.appendChild(option);
     });
 
+    var labelAfiliacion = document.createElement("label"); // Nuevo campo Afiliación
+    labelAfiliacion.textContent = "Afiliación:";
+    var inputAfiliacion = document.createElement("input");
+    inputAfiliacion.type = "text";
+    inputAfiliacion.classList.add("afiliacion");
+
+    var labelOrcid = document.createElement("label"); // Nuevo campo ORCID
+    labelOrcid.textContent = "ORCID:";
+    var inputOrcid = document.createElement("input");
+    inputOrcid.type = "text";
+    inputOrcid.classList.add("orcid");
+
     // Agregar campos al nuevo autor
     nuevoAutor.appendChild(labelNombre);
     nuevoAutor.appendChild(inputNombre);
+    nuevoAutor.appendChild(labelApellido);
+    nuevoAutor.appendChild(inputApellido);
     nuevoAutor.appendChild(labelSequence);
     nuevoAutor.appendChild(selectSequence);
     nuevoAutor.appendChild(labelContributorRole);
     nuevoAutor.appendChild(selectContributorRole);
+    nuevoAutor.appendChild(labelAfiliacion);
+    nuevoAutor.appendChild(inputAfiliacion);
+    nuevoAutor.appendChild(labelOrcid);
+    nuevoAutor.appendChild(inputOrcid);
 
     // Agregar nuevo autor al contenedor
     autoresContainer.appendChild(nuevoAutor);
