@@ -77,6 +77,10 @@ function generarXML() {
     var postedContent = document.createElement("posted_content");
     postedContent.setAttribute("type", tipoContenido); // Establecer el tipo de contenido
 
+    // Agregar <contributors> al "posted_content"
+    var contributors = document.createElement("contributors");
+    postedContent.appendChild(contributors);
+
     body.appendChild(postedContent);
 
     // Agregar "body" al "doi_batch"
