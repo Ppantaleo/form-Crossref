@@ -142,19 +142,24 @@ function generarXML() {
         postedDate.appendChild(postedDateYear);
         postedContent.appendChild(postedDate);
 
-        // Agregar <acceptance_date> al "posted_content"
-        var acceptanceDate = document.createElementNS("http://www.crossref.org/schema/4.4.2", "acceptance_date");
-        var acceptanceDateComponents = acceptanceDateValue.split('-');
-        var acceptanceDateMonth = document.createElementNS("http://www.crossref.org/schema/4.4.2", "month");
-        acceptanceDateMonth.textContent = acceptanceDateComponents[1];
-        var acceptanceDateDay = document.createElementNS("http://www.crossref.org/schema/4.4.2", "day");
-        acceptanceDateDay.textContent = acceptanceDateComponents[2];
-        var acceptanceDateYear = document.createElementNS("http://www.crossref.org/schema/4.4.2", "year");
-        acceptanceDateYear.textContent = acceptanceDateComponents[0];
-        acceptanceDate.appendChild(acceptanceDateMonth);
-        acceptanceDate.appendChild(acceptanceDateDay);
-        acceptanceDate.appendChild(acceptanceDateYear);
-        postedContent.appendChild(acceptanceDate);
+        // Obtener el valor del campo acceptanceDate desde el formulario
+        var acceptanceDateValue = document.getElementById("acceptanceDate").value;
+
+// Verificar si hay un valor antes de agregar <acceptance_date> al "posted_content"
+        if (acceptanceDateValue) {
+            var acceptanceDate = document.createElementNS("http://www.crossref.org/schema/4.4.2", "acceptance_date");
+            var acceptanceDateComponents = acceptanceDateValue.split('-');
+            var acceptanceDateMonth = document.createElementNS("http://www.crossref.org/schema/4.4.2", "month");
+            acceptanceDateMonth.textContent = acceptanceDateComponents[1];
+            var acceptanceDateDay = document.createElementNS("http://www.crossref.org/schema/4.4.2", "day");
+            acceptanceDateDay.textContent = acceptanceDateComponents[2];
+            var acceptanceDateYear = document.createElementNS("http://www.crossref.org/schema/4.4.2", "year");
+            acceptanceDateYear.textContent = acceptanceDateComponents[0];
+            acceptanceDate.appendChild(acceptanceDateMonth);
+            acceptanceDate.appendChild(acceptanceDateDay);
+            acceptanceDate.appendChild(acceptanceDateYear);
+            postedContent.appendChild(acceptanceDate);
+        }
 
         body.appendChild(postedContent);
 
