@@ -30,8 +30,29 @@
             <option value="other">Other</option>
         </select>
 
+        <!-- Caja de autores -->
+        <div id="autoresContainer">
+            <label for="autor">Autor:</label>
+            <!-- Primer autor presente desde el principio -->
+            <div class="autor">
+                <label for="nombre">Nombre:</label>
+                <input type="text" class="nombre" required>
+                <label for="sequence">Sequence:</label>
+                <select class="sequence">
+                    <option value="first">First</option>
+                    <option value="additional">Additional</option>
+                </select>
+                <label for="contributorRole">Contributor Role:</label>
+                <select class="contributorRole">
+                    <!-- Opciones para Contributor Role se agregarán dinámicamente aquí -->
+                </select>
+            </div>
+        </div>
+
+        <button type="button" onclick="agregarAutor()">Agregar Autor</button>
+
         <br>
-        <button type="submit">Generar XML</button>
+        <button type="button" onclick="generarXML()">Generar XML</button>
     </form>
 
     <h2>XML Generado:</h2>
@@ -42,5 +63,30 @@
 
     <!-- Archivo JS -->
     <script src="generadorXML.js"></script>
+
+    <script>
+        // Agregar las opciones para Contributor Role al primer autor al cargar la página
+        var primerAutor = document.querySelector("#autoresContainer .autor");
+        var selectContributorRole = primerAutor.querySelector(".contributorRole");
+
+        var roles = [
+            "author",
+            "editor",
+            "chair",
+            "reviewer",
+            "review-assistant",
+            "stats-reviewer",
+            "reviewer-external",
+            "reader",
+            "translator"
+        ];
+
+        roles.forEach(function (role) {
+            var option = document.createElement("option");
+            option.value = role;
+            option.textContent = role.charAt(0).toUpperCase() + role.slice(1); // Capitalizar la primera letra
+            selectContributorRole.appendChild(option);
+        });
+    </script>
 </body>
 </html>

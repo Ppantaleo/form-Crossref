@@ -22,84 +22,176 @@ function generarTimestamp() {
 }
 
 function generarXML() {
-    // Crear el elemento raíz <doi_batch> con los atributos especificados
-    var doiBatch = document.createElement("doi_batch");
-    doiBatch.setAttribute("version", "4.4.2");
-    doiBatch.setAttribute("xmlns", "http://www.crossref.org/schema/4.4.2");
-    doiBatch.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-    doiBatch.setAttribute("xsi:schemaLocation", "http://www.crossref.org/schema/4.4.2 http://data.crossref.org/schemas/crossref4.4.2.xsd");
+    try {
+        // Crear el elemento raíz <doi_batch> con los atributos especificados
+        var doiBatch = document.createElementNS("http://www.crossref.org/schema/4.4.2", "doi_batch");
+        doiBatch.setAttribute("version", "4.4.2");
+        doiBatch.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+        doiBatch.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance", "xsi:schemaLocation", "http://www.crossref.org/schema/4.4.2 http://data.crossref.org/schemas/crossref4.4.2.xsd");
 
-    // Crear elementos "head" y "body"
-    var head = document.createElement("head");
+        // Crear elementos "head" y "body" con el espacio de nombres correcto
+        var head = document.createElementNS("http://www.crossref.org/schema/4.4.2", "head");
+        var body = document.createElementNS("http://www.crossref.org/schema/4.4.2", "body");
 
-    // Agregar <doi_batch_id> al "head"
-    var doiBatchId = document.createElement("doi_batch_id");
-    doiBatchId.textContent = generarDoiBatchId(); // Generar un doi_batch_id único
-    head.appendChild(doiBatchId);
+        // Agregar <doi_batch_id> al "head"
+        var doiBatchId = document.createElementNS("http://www.crossref.org/schema/4.4.2", "doi_batch_id");
+        doiBatchId.textContent = generarDoiBatchId(); // Generar un doi_batch_id único
+        head.appendChild(doiBatchId);
 
-    // Agregar <timestamp> al "head"
-    var timestamp = document.createElement("timestamp");
-    timestamp.textContent = generarTimestamp(); // Generar la marca de tiempo actual
-    head.appendChild(timestamp);
+        // Agregar <timestamp> al "head"
+        var timestamp = document.createElementNS("http://www.crossref.org/schema/4.4.2", "timestamp");
+        timestamp.textContent = generarTimestamp(); // Generar la marca de tiempo actual
+        head.appendChild(timestamp);
 
-    // Agregar <depositor> al "head"
-    var depositor = document.createElement("depositor");
+        // Agregar <depositor> al "head"
+        var depositor = document.createElementNS("http://www.crossref.org/schema/4.4.2", "depositor");
 
-    // Agregar <depositor_name> al "depositor"
-    var depositorName = document.createElement("depositor_name");
-    depositorName.textContent = document.getElementById("depositante").value; // Obtener del campo correspondiente
-    depositor.appendChild(depositorName);
+        // Agregar <depositor_name> al "depositor"
+        var depositorName = document.createElementNS("http://www.crossref.org/schema/4.4.2", "depositor_name");
+        depositorName.textContent = document.getElementById("depositante").value; // Obtener del campo correspondiente
+        depositor.appendChild(depositorName);
 
-    // Agregar <email_address> al "depositor"
-    var emailAddress = document.createElement("email_address");
-    emailAddress.textContent = document.getElementById("emailDepositante").value; // Obtener del campo correspondiente
-    depositor.appendChild(emailAddress);
+        // Agregar <email_address> al "depositor"
+        var emailAddress = document.createElementNS("http://www.crossref.org/schema/4.4.2", "email_address");
+        emailAddress.textContent = document.getElementById("emailDepositante").value; // Obtener del campo correspondiente
+        depositor.appendChild(emailAddress);
 
-    head.appendChild(depositor);
+        head.appendChild(depositor);
 
-    // Agregar <registrant> al "head"
-    var registrant = document.createElement("registrant");
-    registrant.textContent = document.getElementById("registrante").value; // Obtener del campo correspondiente
-    head.appendChild(registrant);
+        // Agregar <registrant> al "head"
+        var registrant = document.createElementNS("http://www.crossref.org/schema/4.4.2", "registrant");
+        registrant.textContent = document.getElementById("registrante").value; // Obtener del campo correspondiente
+        head.appendChild(registrant);
 
-    var body = document.createElement("body");
+        // Agregar "head" y "body" al "doi_batch"
+        doiBatch.appendChild(head);
+        doiBatch.appendChild(body);
 
-    // Agregar elementos al "head"
-    // Puedes personalizar y agregar más elementos según tus necesidades
+        // Obtener valores de los nuevos campos
+        var tipoContenido = document.getElementById("tipoContenido").value;
 
-    // Agregar "head" al "doi_batch"
-    doiBatch.appendChild(head);
+        // Agregar nuevos elementos al "body"
+        var postedContent = document.createElementNS("http://www.crossref.org/schema/4.4.2", "posted_content");
+        postedContent.setAttribute("type", tipoContenido); // Establecer el tipo de contenido
 
-    // Obtener valores de los nuevos campos
-    var tipoContenido = document.getElementById("tipoContenido").value;
+        // Agregar <contributors> al "posted_content"
+        var contributors = document.createElementNS("http://www.crossref.org/schema/4.4.2", "contributors");
 
-    // Agregar nuevos elementos al "body"
-    var postedContent = document.createElement("posted_content");
-    postedContent.setAttribute("type", tipoContenido); // Establecer el tipo de contenido
+        // Obtener autores dinámicamente
+        var autoresContainer = document.getElementById("autoresContainer");
+        var autorElements = autoresContainer.getElementsByClassName("autor");
 
-    // Agregar <contributors> al "posted_content"
-    var contributors = document.createElement("contributors");
-    postedContent.appendChild(contributors);
+        for (var i = 0; i < autorElements.length; i++) {
+            var autor = autorElements[i];
+            var personName = document.createElementNS("http://www.crossref.org/schema/4.4.2", "person_name");
 
-    body.appendChild(postedContent);
+            // Obtener valores del autor
+            var nombre = autor.querySelector(".nombre").value;
+            var sequence = autor.querySelector(".sequence").value;
+            var contributorRole = autor.querySelector(".contributorRole").value;
 
-    // Agregar "body" al "doi_batch"
-    doiBatch.appendChild(body);
+            personName.setAttribute("sequence", sequence);
+            personName.setAttribute("contributor_role", contributorRole);
 
-    // Convertir el objeto DOI Batch a una cadena XML
-    var xmlString = '<?xml version="1.0" encoding="utf-8"?>\n' + doiBatch.outerHTML;
+            var givenName = document.createElementNS("http://www.crossref.org/schema/4.4.2", "given_name");
+            givenName.textContent = nombre;
+            personName.appendChild(givenName);
 
-    // Añadir saltos de línea y espacios para mejorar la legibilidad
-    xmlString = xmlString.replace(/></g, '>\n<');
+            // No es necesario agregar <contributor_role> al "person_name" del primer autor
 
-    // Mostrar el XML generado
-    document.getElementById("xmlOutput").innerText = xmlString;
+            contributors.appendChild(personName);
+        }
 
-    // Almacenar el XML generado en una variable global
-    window.generatedXML = xmlString;
+        postedContent.appendChild(contributors);
 
-    // Mostrar el botón de Descargar
-    document.getElementById("downloadButton").style.display = "inline";
+        body.appendChild(postedContent);
+
+        // Agregar "body" al "doi_batch"
+        doiBatch.appendChild(body);
+
+        // Convertir el objeto DOI Batch a una cadena XML
+        var xmlString = '<?xml version="1.0" encoding="utf-8"?>\n' + new XMLSerializer().serializeToString(doiBatch);
+
+        // Añadir saltos de línea y espacios para mejorar la legibilidad
+        xmlString = xmlString.replace(/></g, '>\n<');
+
+        // Mostrar el XML generado
+        document.getElementById("xmlOutput").innerText = xmlString;
+
+        // Almacenar el XML generado en una variable global
+        window.generatedXML = xmlString;
+
+        // Mostrar el botón de Descargar
+        document.getElementById("downloadButton").style.display = "inline";
+    } catch (error) {
+        console.error("Error al generar XML:", error);
+    }
+}
+
+// Función para agregar un nuevo autor
+function agregarAutor() {
+    var autoresContainer = document.getElementById("autoresContainer");
+
+    // Crear nuevo div para el nuevo autor
+    var nuevoAutor = document.createElement("div");
+    nuevoAutor.classList.add("autor");
+
+    // Crear campos para el nuevo autor
+    var labelNombre = document.createElement("label");
+    labelNombre.textContent = "Nombre:";
+    var inputNombre = document.createElement("input");
+    inputNombre.type = "text";
+    inputNombre.classList.add("nombre");
+    inputNombre.required = true;
+
+    var labelSequence = document.createElement("label");
+    labelSequence.textContent = "Sequence:";
+    var selectSequence = document.createElement("select");
+    selectSequence.classList.add("sequence");
+    var optionFirst = document.createElement("option");
+    optionFirst.value = "first";
+    optionFirst.textContent = "First";
+    var optionAdditional = document.createElement("option");
+    optionAdditional.value = "additional";
+    optionAdditional.textContent = "Additional";
+    selectSequence.appendChild(optionFirst);
+    selectSequence.appendChild(optionAdditional);
+
+    var labelContributorRole = document.createElement("label");
+    labelContributorRole.textContent = "Contributor Role:";
+    var selectContributorRole = document.createElement("select");
+    selectContributorRole.classList.add("contributorRole");
+
+    // Agrega las opciones para Contributor Role
+    var roles = [
+        "author",
+        "editor",
+        "chair",
+        "reviewer",
+        "review-assistant",
+        "stats-reviewer",
+        "reviewer-external",
+        "reader",
+        "translator"
+    ];
+
+    roles.forEach(function (role) {
+        var option = document.createElement("option");
+        option.value = role;
+        option.textContent = role.charAt(0).toUpperCase() + role.slice(1); // Capitalizar la primera letra
+        selectContributorRole.appendChild(option);
+    });
+
+    // Agregar campos al nuevo autor
+    nuevoAutor.appendChild(labelNombre);
+    nuevoAutor.appendChild(inputNombre);
+    nuevoAutor.appendChild(labelSequence);
+    nuevoAutor.appendChild(selectSequence);
+    nuevoAutor.appendChild(labelContributorRole);
+    nuevoAutor.appendChild(selectContributorRole);
+
+    // Agregar nuevo autor al contenedor
+    autoresContainer.appendChild(nuevoAutor);
 }
 
 function descargarXML() {
