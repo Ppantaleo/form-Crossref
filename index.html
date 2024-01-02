@@ -4,19 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XML Generator for Posted Content Type</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <h1>XML Generator</h1>
-    <h2>for Posted Content Type</h2>
+    <h2>for Posted Content Type <a href="https://www.crossref.org/documentation/research-nexus/posted-content-includes-preprints/" target="_blank" alt="Crossref Documentation">
+        <i class="fas fa-info-circle"></i></a></h2>
+        <p>In this form you will be able to generate in a simple way an XML to load in Crossref and deposit DOI specifically for one type: Posted Content.</p>
+        <p>You can <a href="https://data.crossref.org/reports/parser.html" target="_blank">the downloaded XML here</a>.</p>
+        <p>You can learn <a href="https://www.crossref.org/documentation/register-maintain-records/direct-deposit-xml/admin-tool/" target="_blank">how to upload the downloaded XML to Crossref here</a>.</p>
     <form onsubmit="event.preventDefault(); generarXML();">
-        <label for="depositante">Depositor:</label>
-        <input type="text" id="depositante" name="depositante" required>
+        <label for="depositante"><a href="https://data.crossref.org/reports/help/schema_doc/4.4.2/schema_4_4_2.html#depositor" target="_blank" alt="Crossref Documentation">
+            <i class="fas fa-info-circle"></i></a> Depositor:</label>
+        <input type="text" id="depositante" name="depositante" required title="Enter the name under which your institution is registered with Crossref.">
 
-        <label for="emailDepositante">Depositor Email:</label>
-        <input type="email" id="emailDepositante" name="emailDepositante" required>
+        <label for="emailDepositante"><a href="https://data.crossref.org/reports/help/schema_doc/4.4.2/schema_4_4_2.html#email_address" target="_blank" alt="Crossref Documentation">
+            <i class="fas fa-info-circle"></i></a> Depositor Email:</label>
+        <input type="email" id="emailDepositante" name="emailDepositante" required title="Enter the e-mail address your institution is registered with Crossref.">
 
-        <label for="registrante">Registrant:</label>
-        <input type="text" id="registrante" name="registrante" required>
+        <label for="registrante"><a href="https://data.crossref.org/reports/help/schema_doc/4.4.2/schema_4_4_2.html#registrant" target="_blank" alt="Crossref Documentation">
+            <i class="fas fa-info-circle"></i></a> Registrant:</label>
+        <input type="text" id="registrante" name="registrante" required title="The organization that owns the information being registered.">
 
         <label for="tipoContenido">Type of content:</label>
         <select id="tipoContenido" name="tipoContenido">
@@ -81,7 +89,7 @@
         <input type="text" id="resource" name="resource" required placeholder="https://paideiastudio.net/etica-en-la-publicacion-academica/">
 
         <br>
-        <button type="button" onclick="generarXML()">Generar XML</button>
+        <button type="button" onclick="generarXML()">Generate XML</button>
     </form>
 
     <h2>XML Generated:</h2>
