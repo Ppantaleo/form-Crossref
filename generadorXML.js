@@ -329,13 +329,22 @@ function agregarAutor() {
 }
 
 function descargarXML() {
-    // Descargar el archivo XML
-    var blob = new Blob([window.generatedXML], { type: "application/xml" });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement("a");
-    a.href = url;
-    a.download = "archivo.xml";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    // Obtener el valor del campo DOI
+    var doiValue = document.getElementById("doi").value;
+
+    // Verificar si hay un valor en el campo DOI
+    if (doiValue) {
+        // Descargar el archivo XML con el nombre del campo DOI
+        var blob = new Blob([window.generatedXML], { type: "application/xml" });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = doiValue + ".xml"; // Usar el valor del campo DOI como nombre del archivo
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    } else {
+        // Mostrar un mensaje de error si no se proporciona un valor en el campo DOI
+        alert("Please enter a value in the DOI field before downloading the file.");
+    }
 }
