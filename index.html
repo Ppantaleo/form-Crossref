@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de XML</title>
+    <title>XML Generator for Posted Content Type</title>
 </head>
 <body>
-    <h1>Generador de XML</h1>
+    <h1>XML Generator</h1>
+    <h2>for Posted Content Type</h2>
     <form onsubmit="event.preventDefault(); generarXML();">
-        <label for="depositante">Depositante:</label>
+        <label for="depositante">Depositor:</label>
         <input type="text" id="depositante" name="depositante" required>
 
-        <label for="emailDepositante">Email del Depositante:</label>
+        <label for="emailDepositante">Depositor Email:</label>
         <input type="email" id="emailDepositante" name="emailDepositante" required>
 
-        <label for="registrante">Registrante:</label>
+        <label for="registrante">Registrant:</label>
         <input type="text" id="registrante" name="registrante" required>
 
-        <label for="tipoContenido">Tipo de contenido:</label>
+        <label for="tipoContenido">Type of content:</label>
         <select id="tipoContenido" name="tipoContenido">
             <option value="preprint">Preprint</option>
             <option value="working_paper">Working Paper</option>
@@ -30,13 +31,13 @@
 
         <!-- Caja de autores -->
         <div id="autoresContainer">
-            <label>Autor:</label>
+            <label>Autor</label>
             <!-- Primer autor presente desde el principio -->
             <div class="autor">
-                <label for="nombre">Nombre:</label>
+                <label for="nombre">Name:</label>
                 <input type="text" class="nombre" required>
 
-                <label for="apellido">Apellido:</label>
+                <label for="apellido">Surname:</label>
                 <input type="text" class="apellido" required>
 
                 <label for="sequence">Sequence:</label>
@@ -50,36 +51,44 @@
                     <!-- Opciones para Contributor Role se agregarán dinámicamente aquí -->
                 </select>
 
-                <label for="afiliacion">Afiliación:</label>
+                <label for="afiliacion">Affiliation:</label>
                 <input type="text" class="afiliacion">
 
                 <label for="orcid">ORCID:</label>
                 <input type="text" class="orcid">
             </div>
         </div>
-        <button type="button" onclick="agregarAutor()">Agregar Autor</button>
+        <button type="button" onclick="agregarAutor()">Add Author</button>
 
         <!-- Nuevo campo para el título del contenido -->
-        <label for="tituloContenido">Título del Contenido:</label>
+        <label for="tituloContenido">Title of Content:</label>
         <input type="text" id="tituloContenido" name="tituloContenido" required>
 
         <!-- Nuevos campos para fechas -->
-        <label for="postedDate">Fecha de Publicación:</label>
+        <label for="postedDate">Publication Date:</label>
         <input type="date" id="postedDate" name="postedDate" required>
 
         <!-- fecha de aceptación -->
-        <label for="acceptanceDate">Fecha de Aceptación:</label>
+        <label for="acceptanceDate">Acceptance Date:</label>
         <input type="date" id="acceptanceDate" name="acceptanceDate" required> 
+
+        <!-- Nuevo campo para el DOI -->
+        <label for="doi">DOI:</label>
+        <input type="text" id="doi" name="doi" required placeholder="10.62059/paideia.studio.12790">
+
+        <!-- Nuevo campo para la Resource -->
+        <label for="resource">Resource:</label>
+        <input type="text" id="resource" name="resource" required placeholder="https://paideiastudio.net/etica-en-la-publicacion-academica/">
 
         <br>
         <button type="button" onclick="generarXML()">Generar XML</button>
     </form>
 
-    <h2>XML Generado:</h2>
+    <h2>XML Generated:</h2>
     <pre id="xmlOutput"></pre>
 
     <!-- Botón de Descargar -->
-    <button id="downloadButton" style="display: none;" onclick="descargarXML()">Descargar XML</button>
+    <button id="downloadButton" style="display: none;" onclick="descargarXML()">Download XML</button>
 
     <!-- Archivo JS -->
     <script src="generadorXML.js"></script>

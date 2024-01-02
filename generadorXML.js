@@ -128,7 +128,7 @@ function generarXML() {
         var postedDateValue = document.getElementById("postedDate").value;
         var acceptanceDateValue = document.getElementById("acceptanceDate").value;
 
-        // Agregar <posted_date> al "posted_content"
+       // Agregar <posted_date> al "posted_content"
         var postedDate = document.createElementNS("http://www.crossref.org/schema/4.4.2", "posted_date");
         var postedDateComponents = postedDateValue.split('-');
         var postedDateMonth = document.createElementNS("http://www.crossref.org/schema/4.4.2", "month");
@@ -145,7 +145,7 @@ function generarXML() {
         // Obtener el valor del campo acceptanceDate desde el formulario
         var acceptanceDateValue = document.getElementById("acceptanceDate").value;
 
-// Verificar si hay un valor antes de agregar <acceptance_date> al "posted_content"
+        // Verificar si hay un valor antes de agregar <acceptance_date> al "posted_content"
         if (acceptanceDateValue) {
             var acceptanceDate = document.createElementNS("http://www.crossref.org/schema/4.4.2", "acceptance_date");
             var acceptanceDateComponents = acceptanceDateValue.split('-');
@@ -159,6 +159,29 @@ function generarXML() {
             acceptanceDate.appendChild(acceptanceDateDay);
             acceptanceDate.appendChild(acceptanceDateYear);
             postedContent.appendChild(acceptanceDate);
+        }
+
+        // Obtener valores de los campos del formulario
+        var doiValue = document.getElementById("doi").value;
+        var resourceValue = document.getElementById("resource").value;
+
+        // Verificar si se proporcionó un DOI y una Resource
+        if (doiValue && resourceValue) {
+            // Crear elementos para doi_data
+            var doiData = document.createElementNS("http://www.crossref.org/schema/4.4.2", "doi_data");
+
+            // Crear elemento para doi
+            var doiElement = document.createElementNS("http://www.crossref.org/schema/4.4.2", "doi");
+            doiElement.textContent = doiValue;
+            doiData.appendChild(doiElement);
+
+            // Crear elemento para resource
+            var resourceElement = document.createElementNS("http://www.crossref.org/schema/4.4.2", "resource");
+            resourceElement.textContent = resourceValue;
+            doiData.appendChild(resourceElement);
+
+            // Agregar doi_data al cuerpo del XML
+            postedContent.appendChild(doiData);
         }
 
         body.appendChild(postedContent);
