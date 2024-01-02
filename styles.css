@@ -1,0 +1,89 @@
+/* styles.css */
+
+/* Estilos generales del formulario */
+body {
+    font-family: Poppins, sans-serif;
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding-right: 100px;
+    padding-left: 100px;
+    overflow-x: hidden;
+}
+
+footer {
+    text-align: center;
+}
+
+/* Estilos para los títulos de sección */
+h1 {
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+h2 {
+    margin-bottom: 10px;
+    margin-top: 0px;
+    text-align: center;
+}
+
+h3 {
+    margin-bottom: 10px;
+    margin-top: 0px;
+    text-align: center;
+}
+
+p {
+    margin-bottom: 10px;
+    margin-top: 0px;
+    text-align: center;
+}
+
+/* Estilos para el formulario y sus campos */
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+i {
+   color: #7DC22B; 
+}
+
+/* Estilos para los botones */
+button {
+    padding: 10px;
+    background-color: #ffffff;
+    color: #7DC22B;
+    border-top: solid 2px #7DC22B;
+    border-bottom: solid 4px #7DC22B;
+    border-left: solid 2px #7DC22B;
+    border-right: solid 4px #7DC22B;
+    border-radius: 2px;
+    cursor: pointer;
+    font-family: Poppins, sans-serif;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+button:hover {
+    background-color: #7DC22B;
+    color:white;
+}
+
+/* Otros estilos específicos según tu formulario */
+/* Agrega estilos adicionales según lo necesites */
